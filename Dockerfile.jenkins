@@ -1,0 +1,21 @@
+FROM jenkins/jenkins:lts-jdk21
+
+USER root
+
+# Instalar Node.js 20
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
+
+# Habilitar corepack y pnpm
+RUN corepack enable \
+    && corepack prepare pnpm@10.33.0 --activate
+
+# Plugins a instalar automáticamente
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
+
+# Configuración as Code
+COPY jenkins.yaml /var/jenkins_home/casc_configs/jenkins.yaml
+ENV CASC_JENKINS_CONFIG=/var/jenkins_home/casc_configs/jenkins.yaml
+
+USER jenkins
