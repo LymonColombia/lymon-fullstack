@@ -1,6 +1,10 @@
 [submodule "lymon-backend"]
 	path = lymon-backend
 	url = https://github.com/LymonColombia/lymon-backend.git
+	update = rebase
+	branch = staging
 [submodule "lymon-frontend"]
 	path = lymon-frontend
 	url = https://github.com/LymonColombia/lymon-frontend.git
+	update = rebase
+	branch = staging
